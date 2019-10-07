@@ -1,0 +1,58 @@
+<script>
+{{#sections}}
+import {{name}} from 'CustomComponent/{{name}}';
+{{/sections}}
+import { mockFetchPageData } from '../../helpers'
+import matchPath from '../../helpers/matchPath'
+
+  export default {
+    components: {
+      {{#sections}}
+      {{name}},
+      {{/sections}}
+    },
+    computed: {
+      {{#sections}}
+      {{name}}Data() {
+        return this.pageData.section_data.find(
+          section => section.section_id === "{{id}}"
+        );
+      },
+      {{/sections}}
+    },
+    render(h) {
+      return h("div", [
+        h('h1', ["Welcome to " + this.pageData.name + " Page"]),
+        {{#sections}}
+        h("{{name}}", {
+          props: {
+            ...this.{{name}}Data
+          }
+        }),
+        {{/sections}}
+      ]);
+    },
+    async asyncData(ctx) {
+      let pageData
+
+      if (process.server) {
+        const {
+          params: { id }
+        } = matchPath(ctx.req.url, { exact: true, path: '/MasterPage/:id' })
+
+        pageData = await mockFetchPageData(id)
+      } else {
+        const {
+          params: { id }
+        } = matchPath(ctx.route.fullPath, {
+          exact: true,
+          path: '/MasterPage/:id'
+        })
+
+        pageData = await mockFetchPageData(id)
+      }
+
+      return { pageData }
+    }
+  };
+</script>
