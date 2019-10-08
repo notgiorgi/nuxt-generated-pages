@@ -38,23 +38,15 @@ export default {
   },
   async asyncData(ctx) {
     let pageData
+    console.log('client side run')
+    const {
+      params: { id }
+    } = matchPath(ctx.route.fullPath, {
+      exact: true,
+      path: '/MasterPage/:id'
+    })
 
-    if (process.server) {
-      const {
-        params: { id }
-      } = matchPath(ctx.req.url, { exact: true, path: '/MasterPage/:id' })
-
-      pageData = await mockFetchPageData(id)
-    } else {
-      const {
-        params: { id }
-      } = matchPath(ctx.route.fullPath, {
-        exact: true,
-        path: '/MasterPage/:id'
-      })
-
-      pageData = await mockFetchPageData(id)
-    }
+    pageData = await mockFetchPageData(id)
 
     return { pageData }
   }
