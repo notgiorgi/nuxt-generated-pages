@@ -38,7 +38,7 @@ export default {
   },
   async asyncData(ctx) {
     let pageData
-    console.log('client side run')
+
     const {
       params: { id }
     } = matchPath(ctx.route.fullPath, {
