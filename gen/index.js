@@ -9,7 +9,7 @@ async function main() {
     {
       id: 1,
       name: 'Default',
-      section_ids: [1, 2]
+      section_ids: [1, 2, 4]
     },
     {
       id: 2,
@@ -55,6 +55,10 @@ function getMasterPageSections(masterPage) {
     {
       id: 3,
       name: 'Content'
+    },
+    {
+      id: 4,
+      name: 'Slider'
     }
   ]
 

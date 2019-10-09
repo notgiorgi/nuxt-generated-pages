@@ -1,13 +1,15 @@
 <script>
 import Header from 'CustomComponent/Header'
 import Footer from 'CustomComponent/Footer'
+import Slider from 'CustomComponent/Slider'
 import { mockFetchPageData } from '../../helpers'
 import matchPath from '../../helpers/matchPath'
 
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    Slider
   },
   computed: {
     HeaderData() {
@@ -18,6 +20,11 @@ export default {
     FooterData() {
       return this.pageData.section_data.find(
         (section) => section.section_id === '2'
+      )
+    },
+    SliderData() {
+      return this.pageData.section_data.find(
+        (section) => section.section_id === '4'
       )
     }
   },
@@ -32,6 +39,11 @@ export default {
       h('Footer', {
         props: {
           ...this.FooterData
+        }
+      }),
+      h('Slider', {
+        props: {
+          ...this.SliderData
         }
       })
     ])
